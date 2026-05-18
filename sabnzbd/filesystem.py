@@ -753,6 +753,16 @@ def create_all_dirs(path: str, apply_permissions: bool = False) -> Union[str, bo
                         # Try to set permissions if desired, ignore failures
                         if apply_permissions:
                             set_permissions(path_part_combined, recursive=False)
+<<<<<<< Updated upstream
+=======
+                    except FileExistsError:
+                        if not os.path.isdir(path_part_combined):
+                            raise
+                    except OSError as e:
+                        if e.errno != 30:  # Ignore read-only filesystem
+                            raise
+
+>>>>>>> Stashed changes
         return path
     except OSError:
         logging.error(T("Failed making (%s)"), clip_path(path), exc_info=True)
